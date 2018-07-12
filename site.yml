@@ -21,7 +21,7 @@
         name: "{{ item }}"
         state: present
       with_items: 
-        - php7.0-fpm
+        - php7.0
         - php7.0-mbstring
         - php7.0-mcrypt
         - php7.0-mysql
@@ -36,43 +36,9 @@
         - php7.0-soap
         - php7.0-xmlrpc
         - apache2
+        - libapache2-mod-php7.0
         - mariadb-server
         - mariadb-client
-
-    - name: Enable mod_rewrite
-      apache2_module:
-        name: rewrite
-        state: present
-
-    - name: Enable proxy_fcgi
-      apache2_module:
-        name: proxy_fcgi
-        state: present
-
-    - name: Enable setenvif
-      apache2_module:
-        name: setenvif
-        state: present
-
-    - name: Disable mpm_prefork
-      apache2_module:
-        name: mpm_prefork
-        state: absent
-        ignore_configcheck: True
-
-    - name: Enable mpm_event
-      apache2_module:
-        name: mpm_event
-        state: present
-        ignore_configcheck: True
-
-    - name: Use php7.0-fpm
-      file:
-        state: link
-        src: /etc/apache2/conf-available/php7.0-fpm.conf
-        dest: /etc/apache2/conf-enabled/php7.0-fpm.conf
-        force: yes
-
    
     - name: Download and unzip moodle
       unarchive:
@@ -81,13 +47,8 @@
         remote_src: yes
         validate_certs: no
 
-    - name: Clean up
-      file:
-        path: /opt/etherpad
-        state: absent
-
     - name: Move files
-      command: bash -c "/tmp/moodle*/* /var/www/html/" 
+      command: bash -c "/tmp/moodle/* /var/www/html/" 
 
     - name: Change file ownership
       file:
