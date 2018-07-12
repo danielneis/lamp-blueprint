@@ -26,7 +26,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/danielneis/subutai-moodle-blueprint/archive/master.zip",
+        "source-url": "https://github.com/danielneis/subutai-blueprint-moodle/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             {
