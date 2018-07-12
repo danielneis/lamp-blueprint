@@ -61,6 +61,13 @@
         recurse: yes
         owner: www-data
         group: www-data
+        
+    - name: Create moodledata
+      file:
+        path: /var/www/moodledata
+        owner: www-data
+        group: www-data
+        mode: 0775
 
     - name: Restart apache
       service: 
