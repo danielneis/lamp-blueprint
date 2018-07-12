@@ -48,8 +48,9 @@
         validate_certs: no
     
     - name: Remove html dir
-      file: mv /var/www/html
-      state: absent
+      file:
+        path: /var/www/html
+        state: absent
       
     - name: Move moodle to html dir
       command: mv /var/www/moodle /var/www/html/
