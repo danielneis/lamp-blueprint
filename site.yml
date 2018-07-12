@@ -68,6 +68,12 @@
         owner: www-data
         group: www-data
         mode: 0775
+        
+    - name: Create database
+      command: mysql -e 'create database moodlesubutai'
+      
+    - name: Create database user
+      command: mysql -e 'grant all on moodlesubutai.* to mdl@localhost identified by "uiashiuahsiuas"'
 
     - name: Restart apache
       service: 
