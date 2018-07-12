@@ -43,11 +43,18 @@
     - name: Download and unzip moodle
       unarchive:
         src: "https://download.moodle.org/download.php/direct/stable35/moodle-3.5.1.tgz"
-        dest: "/var/www/html"
+        dest: "/var/www/"
         remote_src: yes
         validate_certs: no
+    
+    - name: Remove html dir
+      file: mv /var/www/html
+      state: absent
+      
+    - name: Move moodle to html dir
+      command: mv /var/www/moodle /var/www/html/
 
-    - name: Change file ownership
+    - name: Change html dir ownership
       file:
         path: /var/www/html
         recurse: yes
