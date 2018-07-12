@@ -1,4 +1,4 @@
-# Ansible Playbook for Subutai Nextcloud blueprint
+# Ansible Playbook for Subutai Moodle blueprint
 ---
 
 - hosts: all
@@ -29,6 +29,12 @@
         - php7.0-xml
         - php7.0-gd
         - php7.0-curl
+        - php7.0-intl
+        - php7.0-json
+        - php7.0-opcache
+        - php7.0-readline
+        - php7.0-soap
+        - php7.0-xmlrpc
         - apache2
         - mariadb-server
         - mariadb-client
@@ -67,13 +73,29 @@
         dest: /etc/apache2/conf-enabled/php7.0-fpm.conf
         force: yes
 
-    - name: Copy example content
-      copy:
-        src: html/
-        dest: /var/www/html/
+   
+    - name: Download and unzip moodle
+      unarchive:
+        src: "https://download.moodle.org/download.php/direct/stable35/moodle-3.5.1.tgz"
+        dest: "/tmp"
+        remote_src: yes
+        validate_certs: no
+
+    - name: Clean up
+      file:
+        path: /opt/etherpad
+        state: absent
+
+    - name: Move files
+      command: bash -c "/tmp/moodle*/* /var/www/html/" 
+
+    - name: Change file ownership
+      file:
+        path: /var/www/html
+        recurse: yes
         owner: www-data
         group: www-data
-        mode: 0644
+
 
     - name: Restart apache
       service: 
