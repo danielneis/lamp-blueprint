@@ -43,12 +43,9 @@
     - name: Download and unzip moodle
       unarchive:
         src: "https://download.moodle.org/download.php/direct/stable35/moodle-3.5.1.tgz"
-        dest: "/tmp"
+        dest: "/var/www/html"
         remote_src: yes
         validate_certs: no
-
-    - name: Move files
-      command: bash -c "/tmp/moodle/* /var/www/html/" 
 
     - name: Change file ownership
       file:
@@ -56,7 +53,6 @@
         recurse: yes
         owner: www-data
         group: www-data
-
 
     - name: Restart apache
       service: 
