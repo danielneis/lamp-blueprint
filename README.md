@@ -6,22 +6,21 @@ By default the instance has following software:
   - Debian Stretch
   - Apache 2.4
   - MariaDB 10.1
-  - PHP-fpm 7.0
+  - PHP 7.0
   - Moodle
  
  Defaut Apache MPM:
-  - mpm_event
+  - mpm_prefork
  
  PHP Modules:
+  - curl
+  - gd
+  - intl
+  - json
   - mbstring
   - mcrypt
   - mysql
+  - opcache
   - zip
   - xml
   - xmlrpc
-  - intl
-  - opcache
-  - gd
-  - curl
-  - json
-  
